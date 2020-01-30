@@ -21,7 +21,13 @@ movie2 = Movie.new({'title' => 'Falling up', 'genre' => 'Drama/Crime'})
 
 casting1 = Casting.new({'star_id' => star1.id,
   'movie_id' => movie1.id, 'fee' => 2000})
-  casting1.save()
+    casting1.save()
+casting2 = Casting.new({'star_id' => star1.id,
+  'movie_id' => movie2.id, 'fee' => 4123})
+    casting2.save()
+casting3 = Casting.new({'star_id' => star2.id,
+  'movie_id' => movie2.id, 'fee' => 1234})
+  casting3.save()
 
 
 binding.pry
