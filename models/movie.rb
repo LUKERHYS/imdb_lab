@@ -5,9 +5,39 @@ class Movie
   attr_accessor :title, :genre
 
     def initialize(options)
-      @id = options["id"]
+      @id = options['id'].to_i() if options['id']
       @title = options["title"]
       @genre = options["genre"]
     end
+
+    def save()
+      sql = "INSERT INTO movies (
+      title, genre
+      ) Values (
+        $1,$2
+        ) RETURNING id"
+      values = [@title, @genre]
+      movies = SqlRunner.run(sql, values).first()
+      @id = movies['id'].to_i()
+    end
+
+    def update()
+      sql = "UPDATE movies SET(
+      title, genre)=( $1 , $2 )
+      WHERE id = $3"
+      values = [@title, @genre, @id]
+      SqlRunner.run(sql, values)
+    end
+
+    def self.all()
+      sql = "SELECT * FROM movies"
+      movies = SqlRunner.run(sql)
+      result = movies.map{|movie| Movie.new(movie)}
+      return result
+    end
+
+
+
+
 
 end
