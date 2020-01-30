@@ -8,28 +8,28 @@ attr_accessor :fee
     @id = options["id"]
     @star_id = options["star_id"]
     @movie_id = options["movie_id"]
-    @fee = options["fee"]
+    @total_fee = options["total_fee"]
   end
 
   def save()
     sql = "INSERT INTO castings (
-    star_id, movie_id, fee
+    star_id, movie_id, total_fee
     ) Values (
       $1, $2, $3
       ) RETURNING id"
-    values = [@star_id, @movie_id, @fee]
+    values = [@star_id, @movie_id, @total_fee]
     castings = SqlRunner.run(sql, values).first()
     @id = castings['id'].to_i()
   end
 
   def update()
     sql = "UPDATE castings SET
-    fee = $1
+    total_fee = $1
     WHERE id = $2"
-    values = [@fee, @id]
+    values = [@total_fee, @id]
     SqlRunner.run(sql, values)
   end
-
+  
   def self.all()
     sql = "SELECT * FROM castings"
     castings = SqlRunner.run(sql)

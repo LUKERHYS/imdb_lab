@@ -13,20 +13,20 @@ class Star
 
     def save()
       sql = "INSERT INTO stars (
-      first_name, last_name
+      first_name, last_name, fee
       ) Values (
-        $1,$2
+        $1,$2,$3
         ) RETURNING id"
-      values = [@first_name, @last_name]
+      values = [@first_name, @last_name, @fee]
       stars = SqlRunner.run(sql, values).first()
       @id = stars['id'].to_i()
     end
 
     def update()
       sql = "UPDATE stars SET(
-      first_name, last_name)=( $1 , $2 )
-      WHERE id = $3"
-      values = [@first_name, @last_name, @id]
+      first_name, last_name, fee)=( $1, $2, $3 )
+      WHERE id = $4"
+      values = [@first_name, @last_name, @fee, @id]
       SqlRunner.run(sql, values)
     end
 
