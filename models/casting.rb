@@ -22,12 +22,26 @@ attr_accessor :fee
     @id = castings['id'].to_i()
   end
 
+  def update()
+    sql = "UPDATE castings SET
+    fee = $1
+    WHERE id = $2"
+    values = [@fee, @id]
+    SqlRunner.run(sql, values)
+  end
+
   def self.all()
     sql = "SELECT * FROM castings"
     castings = SqlRunner.run(sql)
     result = castings.map{|casting| Casting.new(casting)}
     return result
   end
+
+  def self.delete_all()
+    sql = "DELETE FROM castings"
+    SqlRunner.run(sql)
+  end
+
 
 
 end

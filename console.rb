@@ -1,8 +1,11 @@
 require_relative("models/casting")
 require_relative("models/movie")
 require_relative("models/star")
-
 require("pry")
+
+Casting.delete_all()
+Movie.delete_all()
+Star.delete_all()
 
 star1 = Star.new({'first_name' => 'Michael',
   'last_name' => 'Douglas' })
